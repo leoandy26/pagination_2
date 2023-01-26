@@ -210,12 +210,20 @@ function renderModals(resumes, pageNumber = 1) {
 
 function renderResumes(resumes, pageNumber = 1) {
   let resumeCount = 0;
+  // const checkedResumes = resumes.data.filter((item) => item.Card_Display);
+
+  // const resumeAll = resumes.filter((item) => item.Card_Display);
+  // const resumeAllNumber = resumeAll.map((_, index) => {
+  //   index;
+  // });
+  const checkedResumes = resumes.filter((item) => item.Card_Display);
+  const checkedResumesNumber = checkedResumes.length;
   const filteredResume = resumes.filter((item) => item.Card_Display);
   const resumeData = filteredResume.slice((pageNumber - 1) * 12, pageNumber * 12);
 
   $('#render-resumes').html('');
 
-  $('#number-of-list').text(_.size(resumeData) + ' 名のエンジニアが見つかりました');
+  // $('#number-of-list').text(_.size(filteredResume) + ' 名のエンジニアが見つかりました');
 
   $(resumeData).each((index, resume) => {
     if (resume?.Card_Display) {
@@ -304,7 +312,7 @@ function renderResumes(resumes, pageNumber = 1) {
     }
   });
 
-  $('#number-of-list').text(resumeCount + ' 名のエンジニアが見つかりました');
+  $('#number-of-list').text(checkedResumesNumber + ' 名のエンジニアが見つかりました');
 
   renderModals(resumes);
 
@@ -408,8 +416,8 @@ $.ajax({
 
     // ページネーションーーーーーーーーーーーーーーーーーーーーーー
     // 全データ取得
-    const aaa = resumes.data.filter((item) => item.Card_Display);
-    const filteredResume1 = [...Array(Math.ceil(aaa.length / 12))];
+    const checkedResumes = resumes.data.filter((item) => item.Card_Display);
+    const filteredResume1 = [...Array(Math.ceil(checkedResumes.length / 12))];
     // filteredResume1からtrueだけのデータ取得
     // const filteredCheckedResume = filteredResume1.filter((item) => item.Card_Display);
     // それを.mapで回す
@@ -419,9 +427,6 @@ $.ajax({
         $('#pagination').append(`
       <li class="${item === 1 ? 'active' : ''}">${item}</li>`);
       });
-
-    // これでtrueだけ取れてるかが見たい
-    console.log('aaa ', filteredResume1);
 
     // resumes.data.map((item, index) => {
     //   $('#pagination').append(`
