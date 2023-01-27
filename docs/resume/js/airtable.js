@@ -218,8 +218,6 @@ function renderResumes(resumes, pageNumber = 1) {
 
   $('#render-resumes').html('');
 
-  // $('#number-of-list').text(_.size(filteredResume) + ' 名のエンジニアが見つかりました');
-
   $(resumeData).each((index, resume) => {
     if (resume?.Card_Display) {
       resume.salary = _.floor(resume.Salary / 10000, 1);
@@ -363,7 +361,7 @@ $.ajax({
     const rank = rankingList;
     const skillList = _.compact(_.union(skills.flat(), frameworks.flat()));
 
-    // ポジション
+    // position
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     const positionTags = _.reduce(
       positions,
@@ -374,10 +372,10 @@ $.ajax({
     );
     $('#position-filter').append(positionTags);
 
-    // ポジション
+    // position end
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-    // ランク
+    // rank
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     const rankTags = _.reduce(
@@ -389,10 +387,10 @@ $.ajax({
     );
     $('#rank-filter').append(rankTags);
 
-    // ランク
+    // rank end
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-    // スキル
+    // skill
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     const skillTags = _.reduce(
@@ -404,29 +402,22 @@ $.ajax({
     );
     $('#skill-filter').append(skillTags);
 
-    // スキル
+    // skill end
     // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     renderResumes(resumes.data);
 
-    // ページネーションーーーーーーーーーーーーーーーーーーーーーー
-    // 全データ取得
+    // Paginationーーーーーーーーーーーーーーーーーーーーーー
+    // Get all data
     const checkedResumes = resumes.data.filter((item) => item.Card_Display);
     const filteredResume1 = [...Array(Math.ceil(checkedResumes.length / 12))];
-    // filteredResume1からtrueだけのデータ取得
-    // const filteredCheckedResume = filteredResume1.filter((item) => item.Card_Display);
-    // それを.mapで回す
+    // get only data that is true(checked) on airtable
     filteredResume1
       .map((_, i) => i + 1)
       .map((item) => {
         $('#pagination').append(`
       <li class="${item === 1 ? 'active' : ''}">${item}</li>`);
       });
-
-    // resumes.data.map((item, index) => {
-    //   $('#pagination').append(`
-    //   <li class="${item === 1 ? 'active' : ''}">${(item, index)}</li>`);
-    // });
 
     $('#pagination > li').on('click', function () {
       $('#pagination > li.active').removeClass('active');
