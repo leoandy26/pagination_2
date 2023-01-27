@@ -47,7 +47,7 @@ function toggleModal() {
     });
   });
 }
-
+// モーダルの表示
 function renderModals(resumes, pageNumber = 1) {
   const filteredResume = resumes.filter((item) => item.Card_Display);
   const resumeData = filteredResume.slice((pageNumber - 1) * 12, pageNumber * 12);
@@ -210,12 +210,7 @@ function renderModals(resumes, pageNumber = 1) {
 
 function renderResumes(resumes, pageNumber = 1) {
   let resumeCount = 0;
-  // const checkedResumes = resumes.data.filter((item) => item.Card_Display);
 
-  // const resumeAll = resumes.filter((item) => item.Card_Display);
-  // const resumeAllNumber = resumeAll.map((_, index) => {
-  //   index;
-  // });
   const checkedResumes = resumes.filter((item) => item.Card_Display);
   const checkedResumesNumber = checkedResumes.length;
   const filteredResume = resumes.filter((item) => item.Card_Display);
@@ -442,18 +437,6 @@ $.ajax({
       renderModals(resumes.data, itemNumber);
     });
 
-    // ページネーションーーーーーーーーーーーーーーーーーーーーーー
-
-    // $(function () {
-    //   $('.news-container').paginathing({
-    //     //親要素のclassを記述
-    //     perPage: 5, //1ページあたりの表示件数
-    //     prevText: '前へ', //1つ前のページへ移動するボタンのテキスト
-    //     nextText: '次へ', //1つ次のページへ移動するボタンのテキスト
-    //     activeClass: 'navi-active', //現在のページ番号に任意のclassを付与できます
-    //   });
-    // });
-
     $('#position-filter').change((e) => {
       console.log(e.target.value);
 
@@ -463,6 +446,9 @@ $.ajax({
 
       if (positionValue === 'all' && rankValue === 'all' && skillValue === 'all')
         return renderResumes(resumes.data);
+
+      if (positionValue !== 'all' || rankValue !== 'all' || skillValue !== 'all') {
+      }
 
       const list = resumeFilterCondition(
         resumes.data,
